@@ -69,10 +69,10 @@ J = J + (lambda/(2*m)).*(sum(Theta1(:, 2:end)(:).^2) + sum(Theta2(:, 2:end)(:).^
 %               first time.
 
 
-delt_3 = a3 - y_i;
-delt_2 = (delt_3 * Theta2)(:, 2:end).*sigmoidGradient(z2);
-Delta_2 = (delt_3' * a2)/m;
-Delta_1 = (delt_2' * X(:, 2:end))/m;
+delt_3 = a3 .- y_i; % m x 10
+delt_2 = (delt_3 * Theta2(:, 2:end)).*sigmoidGradient(z2); % m x 25
+Delta_2 = (delt_3' * [ones(m, 1) a2]).*(1/m); % 10 x 26
+Delta_1 = (delt_2' * X).*(1/m); % 25 x 401
 
 
 % Part 3: Implement regularization with the cost function and gradients.
@@ -83,24 +83,8 @@ Delta_1 = (delt_2' * X(:, 2:end))/m;
 %               and Theta2_grad from Part 2.
 %
 
-Delta_1 = Delta_1 + (lambda/m)*Theta1(:, 2:end);
-Delta_2 = Delta_2 + (lambda/m)*Theta2(:, 2:end);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Delta_1 = Delta_1 + (lambda/m)*[zeros(size(Theta1, 1), 1) Theta1(:,2:end)];
+Delta_2 = Delta_2 + (lambda/m)*[zeros(size(Theta2, 1), 1) Theta2(:,2:end)];
 
 % -------------------------------------------------------------
 
@@ -108,8 +92,8 @@ Delta_2 = Delta_2 + (lambda/m)*Theta2(:, 2:end);
 
 % Unroll gradients
 %grad = [Theta1_grad(:) ; Theta2_grad(:)];
-grad = [[zeros(hidden_layer_size, 1) Delta_1](:) ;[zeros(num_labels, 1) Delta_2](:)];
-%grad = [Delta_1(:); Delta_2(:)];
+%grad = [[zeros(hidden_layer_size, 1) Delta_1](:) ;[zeros(num_labels, 1) Delta_2](:)];
+grad = [Delta_1(:); Delta_2(:)];
 %%%%%%%%% What's wrong here: ??%%%%%%%%%%%5
 %for i = 1:m
 %  y_i = zeros(10, 1);
