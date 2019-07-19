@@ -9,3 +9,5 @@ Coursera course submissions
 * [x] Set 3 - 100/100 -->> **16 April'19**
 * [x] Set 4 - 100/100 -->> **4 June 19** (Next Session)
 * [x] Set 5 - 100/100 -->> **13 June'19**
+* [x] Set 6 - 100/100 -->> **2 June'19**
+* [x] Set 7 - 100/100 -->> **19 July'19**
